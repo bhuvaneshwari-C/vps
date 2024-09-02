@@ -1,0 +1,148 @@
+body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #d4efdf;
+    background-repeat: no-repeat;
+}
+.logo{
+    width:500px;
+    height:300px;
+    margin-top:-70px;
+}
+.card{
+    background-color: #d4efdf;
+}
+.card2 {
+    margin: 0px 40px;
+}
+.image {
+    width: 360px;
+    height: 280px;
+}
+.line {
+    height: 1px;
+    width: 45%;
+    margin-top: 10px;
+}
+
+.or {
+    width: 10%;
+    font-weight: bold;
+}
+
+.text-sm {
+    font-size: 14px !important;
+}
+
+::placeholder {
+    color: #6f6d6d;
+    opacity: 1;
+    font-weight: 300
+}
+
+:-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+
+::-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+
+input, textarea {
+    padding: 10px 12px 10px 12px;
+    border: 1px solid lightgrey;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+input:focus, textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #37fe30;
+    outline-width: 0;
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+.btn-blue {
+    background-color: #000000;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 150px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.btn-blue:hover {
+    background-color: #2C3E50;;
+    color:white;
+    cursor: pointer;
+}
+
+.bg-blue {
+    color: #fff;
+    background-color: #1A237E;
+}
+#togglePassword {
+    position: absolute;
+    top: 70%;
+    left: auto;
+    right:40px;
+    transform: translateY(-50%);
+  }
+  .fa-solid {
+    position: absolute;
+    top: 55%;
+    left: auto;
+    right:40px;
+    transform: translateY(-50%);
+  }
+
+@media screen and (max-width: 991px) {
+    .logo {
+        margin-left: 0px;
+    }
+
+    .image {
+        width: 300px;
+        height: 220px;
+    }
+
+    .border-line {
+        border-right: none;
+    }
+
+    .card2 {
+        border-top: 1px solid #EEEEEE !important;
+        margin: 0px 15px;
+    }
+}
+
+@media(min-width:320px) and (max-width:380px){
+    #togglePassword{
+        top: 67%;
+    }
+    .fa-solid{
+        top: 51%;
+    }
+}

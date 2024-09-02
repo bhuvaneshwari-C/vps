@@ -1,0 +1,215 @@
+body {
+    background-color: #FFFFFF;
+    margin: 0;
+}
+.navbar-custom {
+    background-color: rgb(40, 69, 51);
+    color: white;
+    position:fixed;
+    top: 0;
+   z-index: 1000;
+   width: 100%; 
+}
+.sidebar {
+    background-color: #d4efdf;
+    height: 100vh;
+    transition: all 0.3s;
+    width: 240px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    align-items: center;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+.sidebar.collapsed .logo{
+    width:75px;
+}
+.sidebar .nav-link {
+    color: rgb(102, 98, 98);
+    font-size:20px;;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.3s;
+}
+.offcanvas-body .nav-link {
+    color: rgb(102, 98, 98);
+    font-size:20px;;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.3s;
+}
+.offcanvas-body  .nav-link .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    transition: margin 0.3s;
+}
+.sidebar .nav-link:hover{
+    color:rgb(27, 117, 62);
+    background-color: #f7ffef;
+    border-radius:8px;
+}
+.sidebar .nav-link .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    transition: margin 0.3s;
+}
+.sidebar.collapsed .nav-link .text {
+    display: none;
+}
+.sidebar.collapsed .nav-link .icon {
+    margin-right: 0;
+}
+.sidebar-toggler {
+    cursor: pointer;
+    color: white;
+    font-size:35px;
+    margin-left:250px;
+    transition: margin-left 0.3s;
+}
+.logo{
+width:100px;
+margin-top:5px;
+}
+.main-content {
+    margin-left: 240px; 
+    transition: margin-left 0.3s;
+    padding: 20px; 
+}
+.sidebar.collapsed + .navbar .sidebar-toggler {
+ margin-left: 80px; 
+}
+.card {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-icon {
+    font-size: 2rem;
+    color: #4caf50;
+}
+.menu{
+    color:rgb(40, 69, 51);
+    margin-left:-150px;
+    transition: margin-left 0.3s;
+}
+.sidebar-divider {
+        width: 300px;
+        height: 2px;
+        background-color: #333;
+        border: none;
+        transition: width 0.3s ease;
+        margin-top:-20px;
+        margin-bottom: 20px;
+        margin-left:-60px;
+}
+.sidebar.collapsed .sidebar-divider {
+        width: 80px;
+        margin-left: 0;
+        transition: width 0.2s ease;
+}
+.sidebar.collapsed .menu{
+        margin-left:0px;
+}
+.card-content .text-count {
+        font-size: 1.3rem; /* Adjust font size */
+        margin-bottom: 5px;
+        color:black;
+}
+.card-content h5 {
+        margin: 0;
+        color:rgb(40, 69, 51);
+}
+.canvas-navbar{
+    position:fixed;
+    z-index:1100;
+    display:none; 
+}
+.offcanvas{
+        background-color:#d4efdf;
+}
+.off-toggle-btn{
+        border:none;
+        background-color:rgb(40, 69, 51);
+}
+.off-toggle-btn i{
+        font-size:30px;
+}
+.main-content{
+    margin-top:50px;
+}
+
+/* add-product css */
+
+.add-submit-btn{
+    background-color:rgb(40, 69, 51);
+    width:150px;
+}
+.add-submit-btn:hover{
+background-color:#d4efdf;
+color:black !important;
+}
+ .add-reset-btn{
+    background-color: gray;
+    border:none;
+    color:white;
+    border-radius: 5px;
+}
+.form-container {
+    max-width: 800px; 
+    margin: 0 auto;   
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+#imagePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+#imagePreview img {
+    object-fit: cover;
+    display: block;
+}
+
+/*  */
+
+ @media (max-width: 760px) {
+        .canvas-navbar{
+            display:block;
+         } 
+        .sidebar {
+            display: none !important;
+        }
+       .sidebar-toggler{
+            display:none;
+        }
+       .main-content {
+            margin-left: 0; 
+            padding: 20px;
+        }
+       .logout-btn{
+             display:flex;
+             justify-content:flex-end;
+             width: 100%;
+        }
+      }
