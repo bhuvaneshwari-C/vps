@@ -27,8 +27,8 @@ $serialNumber = 1;
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
     <link rel="stylesheet" href="./css/adminPage-style.css" />
-    <!-- <link href="../../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
 
@@ -37,16 +37,16 @@ $serialNumber = 1;
  <!-- Sidebar -->
    <div id="sidebar" class="sidebar d-flex flex-column">
     <div class="sidebar-header mb-5">
-        <img src="./assets/Images/favicon.png" alt="logo" class="logo">  
+        <img src="./images/favicon.png" alt="logo" class="logo">  
     </div>
     <hr class="sidebar-divider">
     <div class="menu">
         <h5>Menu</h5>
     </div>
         <nav class="nav flex-column mt-1">
-        <a href="dashboard.php" class="nav-link mb-3"><i class="bi bi-house icon"></i><span class="text">Dashboard</span></a>
-            <a href="add-product.php" class="nav-link  mb-3"><i class="icon bi bi-plus-square"></i><span class="text">Add Product</span></a>
-            <a href="product-list.php" class="nav-link mb-3"><i class="icon bi bi-list"></i><span class="text">Product List</span></a>
+        <a href="dashboard.php" class="nav-link mb-3 <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>"><i class="bi bi-house icon"></i><span class="text">Dashboard</span></a>
+            <a href="add-product.php" class="nav-link  mb-3 <?php echo basename($_SERVER['PHP_SELF']) == 'add-product.php' ? 'active' : ''; ?>"><i class="icon bi bi-folder-plus"></i><span class="text">Add Product</span></a>
+            <a href="product-list.php" class="nav-link mb-3 <?php echo basename($_SERVER['PHP_SELF']) == 'product-list.php' ? 'active' : ''; ?>"><i class="icon bi bi-list"></i><span class="text">Product List</span></a>
         </nav>
     </div>
     <!-- Navbar -->
@@ -81,6 +81,7 @@ $serialNumber = 1;
 </div>
 </div>
     </div>
+    <!-- Table -->
             <div class="table-responsive main-content p-5">
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -132,6 +133,7 @@ $serialNumber = 1;
             
     </div>
     <script>
+        //Toggle Sidebar
     function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');

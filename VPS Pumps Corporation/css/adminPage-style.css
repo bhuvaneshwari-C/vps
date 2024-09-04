@@ -58,7 +58,7 @@ body {
 }
 .sidebar .nav-link .icon {
     margin-right: 10px;
-    font-size: 20px;
+    font-size: 23px;
     transition: margin 0.3s;
 }
 .sidebar.collapsed .nav-link .text {
@@ -147,6 +147,12 @@ margin-top:5px;
 .main-content{
     margin-top:50px;
 }
+.nav-link.active {
+    color:rgb(27, 117, 62);
+    background-color: #f7ffef;
+    border-radius:8px;
+}
+
 
 /* add-product css */
 

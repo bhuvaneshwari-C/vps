@@ -338,13 +338,13 @@ $conn->close();
                         <!-- SITE Search -->
                         <div id="search"> 
                             <span class="close"></span>
-                            <form role="search" id="searchform" action="https://thewebmax.org/search" method="get" class="radius-xl">
+                            <form role="search" id="searchform"  method="get" class="radius-xl" onsubmit="return searchRedirect()">
                                 <div class="input-group">
-                                    <input class="form-control" value="" name="q" type="search" placeholder="Type to search"/>
-                                    <span class="input-group-append"><button type="button" class="search-btn"><i class="fa fa-paper-plane"></i></button></span>
+                                    <input class="form-control" id="searchQuery" type="search" placeholder="Type to search"/>
+                                    <span class="input-group-append"><button type="submit" class="search-btn"><i class="fa fa-paper-plane"></i></button></span>
                                 </div> 
                             </form>
-                        </div> 
+                        </div>  
                 
                     </div>
                 </div>

@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Add Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
     <link rel="stylesheet" href="./css/adminPage-style.css" />
 </head>
 <body>
@@ -79,9 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h5>Menu</h5>
     </div>
         <nav class="nav flex-column mt-1">
-        <a href="dashboard.php" class="nav-link mb-3"><i class="bi bi-house icon"></i><span class="text">Dashboard</span></a>
-            <a href="#" class="nav-link  mb-3"><i class="icon bi bi-plus-square"></i><span class="text">Add Product</span></a>
-            <a href="product-list.php" class="nav-link mb-3"><i class="icon bi bi-list"></i><span class="text">Product List</span></a>
+        <a href="dashboard.php" class="nav-link mb-3 <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>"><i class="bi bi-house icon"></i><span class="text">Dashboard</span></a>
+            <a href="#" class="nav-link  mb-3 <?php echo basename($_SERVER['PHP_SELF']) == 'add-product.php' ? 'active' : ''; ?>"><i class="icon bi bi-folder-plus"></i><span class="text">Add Product</span></a>
+            <a href="product-list.php" class="nav-link mb-3 <?php echo basename($_SERVER['PHP_SELF']) == 'product-list.php' ? 'active' : ''; ?>"><i class="icon bi bi-list"></i><span class="text">Product List</span></a>
         </nav>
     </div>
     <!-- Navbar -->

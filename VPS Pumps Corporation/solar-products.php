@@ -88,6 +88,7 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="plugins/revolution/revolution/css/navigation.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css">
+    
 
     <style>
              .search-container {
@@ -338,14 +339,15 @@ $conn->close();
                         <!-- SITE Search -->
                         <div id="search"> 
                             <span class="close"></span>
-                            <form role="search" id="searchform" action="https://thewebmax.org/search" method="get" class="radius-xl">
+                            <form role="search" id="searchform"  method="get" class="radius-xl" onsubmit="return searchRedirect()">
                                 <div class="input-group">
-                                    <input class="form-control" value="" name="q" type="search" placeholder="Type to search"/>
-                                    <span class="input-group-append"><button type="button" class="search-btn"><i class="fa fa-paper-plane"></i></button></span>
+                                    <input class="form-control" id="searchQuery" type="search" placeholder="Type to search"/>
+                                    <span class="input-group-append"><button type="submit" class="search-btn"><i class="fa fa-paper-plane"></i></button></span>
                                 </div> 
                             </form>
                         </div> 
-                
+
+    
                     </div>
                 </div>
             </div>                
@@ -391,17 +393,6 @@ $conn->close();
                           <div class="search-container woocommerce-ordering select-box-border-style1-wrapper">
                               <input type="text" id="productSearch" class="search-box" placeholder="Search products...">
                           </div>
-                        <!-- <form class="woocommerce-ordering select-box-border-style1-wrapper" method="get">
-                            <select name="orderby" class="orderby select-box-border-style1" aria-label="Shop order">
-                                <option value="menu_order"  selected='selected'>Default sorting</option>
-                                <option value="popularity" >Sort by popularity</option>
-                                <option value="rating" >Sort by average rating</option>
-                                <option value="date" >Sort by latest</option>
-                                <option value="price" >Sort by price: low to high</option>
-                                <option value="price-desc" >Sort by price: high to low</option>
-                            </select>
-                            <input type="hidden" name="paged" value="1" />
-                        </form> -->
                     </div>
    
 
@@ -425,20 +416,7 @@ $conn->close();
                                     </ul>
                                   </div> 
 
-                                  <!--PRICE RANGE SLIDER-->                                  
-                                    
-                                   <!-- ARCHIVES -->   
-                                   <!-- <div class="widget widget_archives p-a20">
-                                        <div class="m-b30">
-                                            <h4 class="widget-title">Download Archives</h4>
-                                        </div>
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Download PDF 1</a></li>
-                                            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Download PDF 2</a></li>
-                                            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Download PDF 3</a></li>
-                                        </ul>
-                                    </div>                                            -->
-                                                                            
+                                    <!-- ARCHIVES -->                                          
                                    <!-- TAGS -->
                                    <div class="widget widget_archives p-a20">
                                        <div class="m-b30">
@@ -658,6 +636,66 @@ $conn->close();
             
      
         </div>
+   <!-- Bootstrap Modal HTML -->
+   <div class="modal custom-modal fade custom-modal-two modal-padding" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header header-border justify-content-between">
+        <h5 class="modal-title" id="enquiryModalLabel">Enquiry Form</h5>
+        <button type="button" class="btn-close position-static" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <form id="enquiryForm">
+            <div class="contact-input-set">
+            <div class="row">
+            <div class="col-lg-12 col-md-6 mb-3">
+            <label for="enquiry_name" class="col-form-label">Name</label>
+            <input type="text"  id="enquiry_name" class="form-control"  name="enquiry_name" required placeholder="Your Name">
+          </div>
+          <div class="col-lg-12 col-md-6 mb-3">
+            <label for="number" class="col-form-label">Phone No</label>
+            <input type="text"  id="number" class="form-control"  required placeholder="Number">
+          </div>
+          <div class="col-lg-12 col-md-6 mb-3">
+            <label for="email" class="col-form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-control"  required>
+          </div>
+          <div class="col-lg-12 col-md-6 mb-3">
+            <label for="city" class="col-form-label">City</label>
+            <input type="text" id="city" name="city" class="form-control"  required placeholder="City">
+          </div>
+          <div class="col-lg-12 col-md-6 mb-3">
+            <label for="state" class="col-form-label">State</label>
+            <input type="text" id="state" name="state" class="form-control"  required placeholder="State">
+          </div>
+          <div class="col-lg-12 col-md-6 mb-3">
+          <div class="input-block mb-3">
+          <label for="enquiryName" class="col-form-label">Select Your Application</label>
+            <select class="form-select" id="enquiry_category" name="enquiry_category">
+                            <option>Select</option>
+                            <option>Solar</option>
+                            <option>Agricultural</option>
+                            <option>Domestic</option>
+                            <option>All</option>
+                        </select>
+             </div>
+          </div>
+          <div class="col-lg-12 col-md-6 mb-3">
+            <label for="message" class="col-form-label">Message</label>
+            <textarea  id="message" class="form-control" name="message" rows="3" required></textarea>
+          </div>
+            
+          <div class="col-lg-12 text-end form-wizard-button"><button class="button btn-lights reset-btn" type="reset">Reset</button> <button class="btn btn-primary wizard-next-btn" type="submit">Send Enquiry</button> </div>
+          </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
         <!-- CONTENT END -->
 
         <!-- FOOTER START -->
@@ -765,6 +803,9 @@ $conn->close();
 
  	</div>
 
+ 
+
+
 
 
 <!-- JAVASCRIPT  FILES ========================================= --> 
@@ -790,6 +831,12 @@ $conn->close();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>  
 
 <script  src="js/script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+
 
 
 <!-- STYLE SWITCHER  ======= --> 

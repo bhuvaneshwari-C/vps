@@ -37,13 +37,13 @@ $(document).ready(function() {
                                         <p class="text-justify p-3">${product.description}</p>
                                     </span>
                                     <center>
-                                        <div class="">
+                                        <div>
                                             <button class="site-button btn-hover-animation m-b30">
                                                 <a id="pdfLink_${i}" href="#" target="_blank" style="color:white">
                                                     <i class="fa fa-file-pdf-o"></i> View Pdf
                                                 </a>
                                             </button>
-                                            <button class="site-button btn-hover-animation m-b30">
+                                            <button class="site-button btn-hover-animation m-b30" data-bs-toggle="modal" data-bs-target="#enquiryModal">
                                                 <i class="flaticon-right"></i> Enquire Now !
                                             </button>
                                         </div>
@@ -107,3 +107,31 @@ $(document).ready(function() {
         }
     });
 });
+
+// search Redirect
+
+function searchRedirect() {
+    // Get the value entered by the user
+    var query = document.getElementById("searchQuery").value.toLowerCase();
+    console.log("Search Query:", query); // Debugging: Check the input
+
+    // Define your search terms and corresponding URLs
+    var pages = {
+        'agricultural': 'agricultural-products.php',
+        'domestic': 'domestic-products.php',
+        'solar': 'solar-products.php'
+    };
+
+    // Check if the search term matches any key in the pages object
+    if (pages[query]) {
+        console.log("Redirecting to:", pages[query]); // Debugging: Check redirection
+        // Redirect to the corresponding page
+        window.location.href = pages[query];
+    } else {
+        // If no match is found, show an alert
+        alert('No matching category found.');
+    }
+
+    // Prevent the default form submission
+    return false;
+}
