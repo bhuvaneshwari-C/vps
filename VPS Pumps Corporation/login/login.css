@@ -1,32 +1,48 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&amp;display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&amp;display=swap");
+
 body {
-    color: #000;
+    color: #1A3636;
     overflow-x: hidden;
-    height: 100%;
-    background-color: #d4efdf;
+    height: 100vh;
+    background: #d4efdf;
     background-repeat: no-repeat;
+    font-family: "Mulish", sans-serif;
 }
 .logo{
-    width:500px;
-    height:300px;
-    margin-top:-70px;
+    width:120px;
+    display: block;
+    margin: 10px auto;
+}
+
+.welcome-text {
+    font-size: 25px;
+    font-weight: 700;
+    color:black; 
+    text-align: center; 
+    margin-top: 25px; 
+    line-height: 1.5;
+    margin-left:80px; 
 }
 .card{
-    background-color: #d4efdf;
+    background:#d4efdf;
 }
 .card2 {
     margin: 0px 40px;
+    background: linear-gradient(to top, #d4efdf, white);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 100px 0px 100px 0px;
+    max-width: 100%; 
 }
 .image {
     width: 360px;
     height: 280px;
 }
-.line {
-    height: 1px;
-    width: 45%;
-    margin-top: 10px;
+.login{
+    margin-top:-20px;
 }
 
-.or {
+.or{
     width: 10%;
     font-weight: bold;
 }
@@ -54,7 +70,7 @@ body {
 input, textarea {
     padding: 10px 12px 10px 12px;
     border: 1px solid lightgrey;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     margin-bottom: 5px;
     margin-top: 2px;
@@ -112,7 +128,7 @@ a {
   }
   .fa-solid {
     position: absolute;
-    top: 55%;
+    top: 52%;
     left: auto;
     right:40px;
     transform: translateY(-50%);
@@ -122,7 +138,7 @@ a {
     .logo {
         margin-left: 0px;
     }
-
+   
     .image {
         width: 300px;
         height: 220px;
@@ -137,12 +153,274 @@ a {
         margin: 0px 15px;
     }
 }
-
-@media(min-width:320px) and (max-width:380px){
+@media(min-width:325px) and (max-width:430px){
     #togglePassword{
-        top: 67%;
+        top: 73%;
     }
     .fa-solid{
-        top: 51%;
+        top: 56%;
+    }
+}
+@media(max-width:1024px){
+    .logo{
+        margin-left:30px;
+    }
+}
+@media(min-width:310px) and (max-width:324px){
+    #togglePassword{
+        top: 75%;
+    }
+    .fa-solid{
+        top: 59%;
+    }
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&amp;display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&amp;display=swap");
+
+body {
+    color: #1A3636;
+    overflow-x: hidden;
+    height: 100vh;
+    background: #d4efdf;
+    background-repeat: no-repeat;
+    font-family: "Mulish", sans-serif;
+}
+.logo{
+    width:120px;
+    display: block;
+    margin: 10px auto;
+}
+
+.welcome-text {
+    font-size: 25px;
+    font-weight: 700;
+    color:black; 
+    text-align: center; 
+    margin-top: 25px; 
+    line-height: 1.5;
+    margin-left:80px; 
+}
+.card{
+    background:#d4efdf;
+}
+.card2 {
+    margin: 0px auto; 
+    padding: 30px;
+    max-width: 500px; /* Restrict the width of the card to a medium size */
+    background: linear-gradient(to top, #d4efdf, white);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 100px 0px 100px 0px;
+}
+.image {
+    /* margin-top:50px; */
+    animation: moveImage 3s infinite alternate ease-in-out;
+}
+
+
+@keyframes moveImage {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(30px); /* Move right */
+    }
+    100% {
+        transform: translateX(0); /* Move back to the original position */
+    }
+}
+
+.login{
+    margin-top:-20px;
+}
+
+.or{
+    width: 10%;
+    font-weight: bold;
+}
+
+.text-sm {
+    font-size: 14px !important;
+}
+
+::placeholder {
+    color: #6f6d6d;
+    opacity: 1;
+    font-weight: 300
+}
+
+:-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+
+::-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+
+/* Styling input boxes to be medium-sized */
+input, textarea {
+    width: 80%; /* Makes the input box medium-sized */
+    max-width: 350px; /* Maximum width to prevent input from becoming too large */
+    margin: 0 auto; /* Centers the input box horizontally */
+    padding: 10px 15px;
+    border: 1px solid lightgrey;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: block; /* Ensures the element takes up the full width allowed by its parent */
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #2C3E50;
+    box-sizing: border-box;
+}
+
+
+input:focus, textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #37fe30;
+    outline-width: 0;
+}
+.row.px-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+.btn-blue {
+    background-color: #000000;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 150px;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.btn-blue:hover {
+    background-color: #2C3E50;;
+    color:white;
+    cursor: pointer;
+}
+
+.bg-blue {
+    color: #fff;
+    background-color: #1A237E;
+}
+#togglePassword {
+    position: absolute;
+    top: 66%;
+    left: auto;
+    right:84px;
+    transform: translateY(-50%);
+  }
+  .fa-solid {
+    position: absolute;
+    top: 53%;
+    left: auto;
+    right:84px;
+    transform: translateY(-50%);
+  }
+  .social-icon {
+    font-size: 20px;
+    color:#1A3636;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #37fe30; /* Change this to whatever color you'd like on hover */
+}
+
+/* .fa-facebook-f {
+    color: #3b5998; 
+}
+
+.fa-instagram {
+    color: #e1306c; 
+}
+
+.fa-whatsapp {
+    color: #25D366; 
+} */
+.follow-us-text {
+    font-size: 18px;
+    color: #000000;
+    font-weight: 500;
+    padding-right:8px;
+}
+
+
+@media screen and (max-width: 991px) {
+    
+    .image {
+        width: 300px;
+        height: 220px;
+    }
+
+    .border-line {
+        border-right: none;
+    }
+
+}
+@media(min-width:325px) and (max-width:430px){
+  
+    #togglePassword{
+        top: 66%;
+        right:44px;
+    }
+    .fa-solid{
+        top: 53%;
+        right:44px;
+    }
+    .card1{
+        display:none;
+    }
+}
+
+@media(min-width:310px) and (max-width:324px){
+    #togglePassword{
+        top: 66%;
+        right:38px;
+    }
+    .fa-solid{
+        top: 53%;
+        right:38px;
+    }
+    .welcome-back{
+        font-size:21px;
+    }
+    .card1{
+        display:none;
+    }
+    .card2 {
+        max-width: 100%; /* Ensure card2 takes up full width on smaller screens */
+        padding: 0px; 
+    }
+}
+
+/* For smaller screens, ensuring the input box stays centered */
+@media (max-width: 767px) {
+    .card2 {
+        margin: 0 20px; 
+        padding: 20px;
+    }
+
+    input, textarea {
+        width: 100%;
+        max-width: none; 
     }
 }

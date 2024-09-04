@@ -22,7 +22,7 @@ if ($stmt->num_rows > 0) {
         $_SESSION['username'] = $username;
         echo "<script>
         alert('Login Successful! Welcome, " . htmlspecialchars($username) . "');
-        window.location.href='../dashboard.php'; 
+        window.location.href='../dashboard/dashboard.php'; 
     </script>";
     exit();
     } else {
@@ -59,23 +59,26 @@ $conn->close();
             <div class="row d-flex">
                 <div class="col-lg-6">
                     <div class="card1 pb-5">
-                        <div class="row justify-content-center">
-                            <img src="../images/VPS 4.png" class="logo">
+                        <div class="row mr-4">
+                            <p class="welcome-text">Welcome to VPS Pumps Corporation, your trusted partner in pumping solutions.</p>
                         </div>
                         <div class="row px-3 justify-content-center mb-5 border-line">
-                            <img src="../images/farmer.png" class="image">
+                            <img src="../images/background-1.png" class="image" width=500>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="card2 card border-0 px-4 py-5">
-                        <div class="row mb-4 px-3 justify-content-center">
-                            <h1 class="mb-5 mr-4 mt-2">Welcome Back!</h1>
-                            <!-- <h1 class="mb-5 mr-4 mt-2">Login</h1> -->
+                    <div class="card2 card border-0 px-3 py-5">
+                        <div class="row px-3 justify-content-center">
+                            <h3 class="mr-4 mt-2 welcome-back">Hi Welcome Back!</h3>
                         </div>
+                        <div class="text-align:center mb-5"> 
+                            <img src="../images/favicon.png" class="logo">
+                        </div>
+                       
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="row px-3 justify-content-center">
-                            <h3 class="mb-5 mr-4 mt-2">Login</h3>
+                            <h4 class="mb-5 mr-4 login">Admin Login</h4>
                         </div>
                         <div class="row px-3">
                             <!-- <label class="mb-1"><h6 class="mb-0 text-sm">Email Address</h6></label> -->
@@ -87,6 +90,19 @@ $conn->close();
                             <i class="fa fa-eye-slash" id="togglePassword"></i>
                             <input type="password" class="p-3" id="inputPassword" name="password" placeholder="Password">
                         </div>
+                        <div class="row mt-4 px-3">
+                        <span class="follow-us-text">follow us</span>
+               
+                <a href="#" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
                         <div class="row mt-5 px-3">
                             <button type="submit" class="btn btn-blue text-center">Login Now</button>
                         </div>

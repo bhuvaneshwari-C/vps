@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     // Get the product category from the hidden input field
     var productCategory = $('#productCategory').val();
@@ -55,28 +56,50 @@ $(document).ready(function() {
                     $('#productContainer').append(productCard);
 
                     if (product.pdf_name && product.pdf_content) {
-                        var pdfDataUri = 'data:application/pdf;base64,' + product.pdf_content;
-                        $('#pdfLink_' + i).attr('href', pdfDataUri);
-
+                        // Convert Base64 to a Uint8Array
+                        var binaryString = window.atob(product.pdf_content);
+                        var len = binaryString.length;
+                        var bytes = new Uint8Array(len);
+                        for (var j = 0; j < len; j++) {
+                            bytes[j] = binaryString.charCodeAt(j);
+                        }
+                    
+                        // Create a Blob with the decoded data
+                        var pdfBlob = new Blob([bytes], { type: 'application/pdf' });
+                        var pdfUrl = URL.createObjectURL(pdfBlob);
+                    
+                        $('#pdfLink_' + i).attr('href', pdfUrl);
+                        
                         var pdfDownloadLink = `
                             <li>
-                                <a href="${pdfDataUri}" download="${product.pdf_name}">
+                                <a href="${pdfUrl}" download="${product.pdf_name}">
                                     <i class="fa fa-file-pdf-o"></i> Download ${product.pdf_name}
                                 </a>
                             </li>
                         `;
                         $('#pdfContainer').append(pdfDownloadLink);
                     }
+                    
                 }
 
                 updateResultSummary(showFrom, showTo, filteredItems.length);
             }
 
             function performSearch(query) {
-                query = query.toLowerCase();
+                // Normalize the search query by trimming spaces, converting to lowercase, and removing extra spaces
+                query = query.toLowerCase().trim().replace(/\s+/g, ' ');
+
+                // Handle queries without spaces by checking if they contain parts of product names or descriptions
                 filteredItems = items.filter(function(product) {
-                    return product.name.toLowerCase().includes(query) || product.description.toLowerCase().includes(query);
+                    // Combine product name and description, remove spaces, and convert to lowercase
+                    var combinedText = (product.name + " " + product.description).toLowerCase().replace(/\s+/g, '');
+                    // Also normalize the product name and description by removing extra spaces
+                    var normalizedText = (product.name + " " + product.description).toLowerCase().trim().replace(/\s+/g, ' ');
+
+                    // Check if the query matches either the combined text without spaces or the normalized text with spaces
+                    return combinedText.includes(query.replace(/\s+/g, '')) || normalizedText.includes(query);
                 });
+
                 $('#pagination-container').pagination({
                     dataSource: filteredItems,
                     pageSize: perPage,
@@ -108,11 +131,12 @@ $(document).ready(function() {
     });
 });
 
+
 // search Redirect
 
 function searchRedirect() {
     // Get the value entered by the user
-    var query = document.getElementById("searchQuery").value.toLowerCase();
+    var query = document.getElementById("searchQuery").value.toLowerCase().trim();
     console.log("Search Query:", query); // Debugging: Check the input
 
     // Define your search terms and corresponding URLs
@@ -122,16 +146,25 @@ function searchRedirect() {
         'solar': 'solar-products.php'
     };
 
-    // Check if the search term matches any key in the pages object
-    if (pages[query]) {
-        console.log("Redirecting to:", pages[query]); // Debugging: Check redirection
-        // Redirect to the corresponding page
-        window.location.href = pages[query];
-    } else {
-        // If no match is found, show an alert
-        alert('No matching category found.');
+    // Map of possible search term variations to the correct key
+    var searchMap = {
+        'agricultural': ['agricultural', 'agri', 'a', 'agr', 'agricultural product'],
+        'domestic': ['domestic', 'dom', 'd', 'domestic product'],
+        'solar': ['solar', 'sol', 's', 'solar product']
+    };
+
+    // Iterate through the searchMap to find a matching term
+    for (var key in searchMap) {
+        if (searchMap[key].includes(query)) {
+            console.log("Redirecting to:", pages[key]); // Debugging: Check redirection
+            // Redirect to the corresponding page
+            window.location.href = pages[key];
+            return false; // Prevent default form submission
+        }
     }
 
-    // Prevent the default form submission
-    return false;
+    // If no match is found, show an alert
+    alert('No matching category found.');
+    return false; // Prevent default form submission
 }
+

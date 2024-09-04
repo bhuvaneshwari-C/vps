@@ -2,6 +2,34 @@
 session_start();
 include './database_conn.php';
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get form data
+$name = $_POST['enquiry_name'];
+$phone = $_POST['number'];
+$email = $_POST['email'];
+$city = $_POST['city'];
+$state = $_POST['state'];
+$category = $_POST['enquiry_category'];
+$message = $_POST['message'];
+
+// Prepare and bind
+$stmt = $conn->prepare("INSERT INTO enquiries (name, phone, email, city, state, category, message) VALUES (?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sssssss", $name, $phone, $email, $city, $state, $category, $message);
+
+if ($stmt->execute()) {
+    echo "<script>
+    alert('Thank you for your enquiry!');
+    window.location.href='agricultural-products.php'; // Redirect to the form page or any other page
+    </script>";
+} else {
+    echo "<script>
+    alert('Oops! Something went wrong. Please try again later.');
+    window.location.href='agricultural-products.php'; // Redirect to the form page or any other page
+    </script>";
+}
+
+}
+
 $agriculture_count = 0;
 $solar_count = 0;
 $domestic_count = 0;
@@ -125,6 +153,69 @@ $conn->close();
             transform: translateY(-50%);
             pointer-events: none;
         }
+        /* enquiry form */
+        .modal-dialog {
+            max-width: 800px; 
+        }
+       .form-select {
+           height: 45px;
+           font-size: 14px;
+           line-height: 20px;
+           border-radius: 5px;
+           border: solid 1px #ced4da;
+           padding: 10px 12px;
+           width: 100%;
+           background-color: white;
+           background-position: right 10px center;
+        }
+       .form-control-input {
+           height: 45px;
+           font-size: 14px;
+           line-height: 2px;
+           border-radius: 5px;
+           border: solid 1px #ced4da;
+           padding: 10px 12px;
+           display:block;
+           width:100%;
+        }
+        .reset-btn, .btn-primary {
+           height: 45px;
+           font-size: 14px;
+           border-radius: 5px;
+           padding: 10px 20px;
+           display: inline-block;
+           border: none;
+        }
+        .btn-primary {
+           background-color:rgb(40, 69, 51);
+           color: white;
+        }
+       .btn-primary:hover {
+          background-color:#d4efdf;
+          color: black;;
+       }
+       .reset-btn {
+          background-color:#d4efdf;
+          border-color: #228B22;
+          color: black;
+       }
+      .reset-btn:hover {
+          background-color:rgb(40, 69, 51);
+          color: white;
+       }
+      .form-group {
+          margin-bottom: 15px;
+       }
+     .modal-header button{
+          background-color:white;
+          border-radius:5px;
+          border:none;
+          color:rgb(184,184,184);
+          font-size:25px;
+      }
+     .modal-header button:hover{
+         color:black;
+     }
     </style>
     
 </head>
@@ -388,18 +479,6 @@ $conn->close();
                             <div class="search-container woocommerce-ordering select-box-border-style1-wrapper">
                               <input type="text" id="productSearch" class="search-box" placeholder="Search products...">
                             </div>
-                        <!-- <span class="woocommerce-result-count">Showing 1&ndash;10 of 13 results</span>
-                        <form class="woocommerce-ordering select-box-border-style1-wrapper" method="get">
-                            <select name="orderby" class="orderby select-box-border-style1" aria-label="Shop order">
-                                <option value="menu_order"  selected='selected'>Default sorting</option>
-                                <option value="popularity" >Sort by popularity</option>
-                                <option value="rating" >Sort by average rating</option>
-                                <option value="date" >Sort by latest</option>
-                                <option value="price" >Sort by price: low to high</option>
-                                <option value="price-desc" >Sort by price: high to low</option>
-                            </select>
-                            <input type="hidden" name="paged" value="1" />
-                        </form> -->
                     </div>
 
                     <div class="row d-flex justify-content-center">
@@ -425,16 +504,6 @@ $conn->close();
                                   <!--PRICE RANGE SLIDER-->                                  
                                     
                                    <!-- ARCHIVES -->   
-                                   <!-- <div class="widget widget_archives p-a20">
-                                        <div class="m-b30">
-                                            <h4 class="widget-title">Download Archives</h4>
-                                        </div>
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Download PDF 1</a></li>
-                                            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Download PDF 2</a></li>
-                                            <li><a href="#"><i class="fa fa-file-pdf-o"></i>Download PDF 3</a></li>
-                                        </ul>
-                                    </div>                                            -->
                                                                             
                                    <!-- TAGS -->
                                    <div class="widget widget_archives p-a20">
@@ -453,235 +522,83 @@ $conn->close();
                         
                                  <div id="productContainer" class="row"></div>
                                  <div id="pagination-container"></div>
-
-                                <!-- COLUMNS 1 -->
-                                <!-- <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/solar/10.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/solar/2.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/solar/8.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/agriculture/72.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/agriculture/74.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/agriculture/78.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/domestic/83.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-lg-6 col-md-4 col-sm-6 m-b30">
-                                    <div class="wt-box wt-product-box   overflow-hide">
-                                        <div class="wt-thum-bx wt-img-overlay1">
-                                            <img src="images/product/domestic/87.png" alt="" width="300">
-                                        </div>
-                        
-                                        <div class="wt-info text-center">
-                                            <h4 class="wt-title">
-                                                <a href="product-detail.html">Agri Monosol</a>
-                                            </h4>
-                                            <span class="price">
-                                          <p class="text-justify p-3">Single stage, monobloc, pump in compact and light weight design. Suitable for solar application. Available in 2 to 20 HP. Main Applications - Solar-powered pump system, Domestic water supply, General irrigation systems, Spray irrigation systems.</p>
-                                            </span>
-                                            
-                                            <center>
-                                                <div>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="fa fa-file-pdf-o"></i>View Pdf</button>
-                                                    <button class="site-button btn-hover-animation m-b30"><i class="flaticon-right"></i>Enquire Now ! </button>
-                                                  </div>
-                                            </center>
-                                        </div>
-                                       
-                                    </div>
-                                </div>  -->
-
-                  
-
-                                 
-                                                                  
-                            
-                        
                         </div>
                         
-  
-                        
-                                              
+                       
                     </div>                                
                 </div>
             </div>   
             <!-- SHOP SECTION END -->
+
+             <!-- Bootstrap Modal HTML -->
+   <div class="modal custom-modal fade modal-padding" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <!-- Image at the top of the form -->
+      <div class="text-center mb-4">
+        <img src="path/to/your/image.jpg" alt="Enquiry Image" class="img-fluid" style="max-width: 100%; height: auto;">
+      </div>
+
+      <div class="modal-header header-border justify-content-between">
+        <h3 class="modal-title" id="enquiryModalLabel">Enquiry Form</h3>
+        <button type="button" class="btn-close position-static" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="enquiryForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+          <div class="contact-input-set">
+            <div class="row g-3"> <!-- g-3 for better spacing between columns -->
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label for="enquiry_name" class="col-form-label">Name<span class="text-danger">*</span></label>
+                <input type="text" id="enquiry_name" class="form-control-input" name="enquiry_name"  placeholder="Your Name" required>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label for="number" class="col-form-label">Phone No<span class="text-danger">*</span></label>
+                <input type="text" id="number" class="form-control-input" name="number"  placeholder="Number" required>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label for="email" class="col-form-label">Email<span class="text-danger">*</span></label>
+                <input type="email" name="email" id="email" class="form-control-input">
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label for="city" class="col-form-label">City<span class="text-danger">*</span></label>
+                <input type="text" id="city" name="city" class="form-control-input" placeholder="City">
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label for="state" class="col-form-label">State<span class="text-danger">*</span></label>
+                <input type="text" id="state" name="state" class="form-control-input" placeholder="State">
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label for="enquiry_category" class="col-form-label">Select Your Application<span class="text-danger">*</span></label>
+                <select class="form-select form-control-input select" id="enquiry_category" name="enquiry_category">
+                  <option>Select</option>
+                  <option>Solar</option>
+                  <option>Agricultural</option>
+                  <option>Domestic</option>
+                  <option>All</option>
+                </select>
+              </div>
+              <div class="col-lg-12 col-md-12 mb-3">
+                <label for="message" class="col-form-label">Message</label>
+                <textarea id="message" class="form-control-input" name="message" rows="3" style="height:130px;"></textarea>
+              </div>
+              <div class="col-lg-12 text-end form-wizard-button">
+                <button class="button reset-btn" type="reset">Reset</button>
+                <button class="btn btn-primary wizard-next-btn" type="submit">Send Enquiry</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
           
-            
-     
         </div>
         <!-- CONTENT END -->
+
+
+
 
         <!-- FOOTER START -->
         <footer class="site-footer footer-light" style="display: block; height: 651.5px;">
@@ -809,8 +726,8 @@ $conn->close();
 <script  src="js/switcher.js"></script><!-- SHORTCODE FUCTIONS  -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>  
-
 <script  src="js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 <!-- STYLE SWITCHER  ======= --> 
 <div class="styleswitcher">
